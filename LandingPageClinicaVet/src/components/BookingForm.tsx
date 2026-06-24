@@ -64,27 +64,12 @@ export function BookingForm() {
       return;
     }
 
+    // Landing page demonstrativa (somente front-end): simula o envio
+    // localmente, sem chamar nenhum back-end.
     setStatus("loading");
-    try {
-      const res = await fetch("/api/agendamento", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(parsed.data),
-      });
-
-      if (!res.ok) {
-        const body = await res.json().catch(() => ({}));
-        throw new Error(body.error ?? "Erro ao enviar agendamento");
-      }
-
-      setStatus("success");
-      setForm(campoVazio);
-    } catch (err) {
-      setStatus("error");
-      setServerError(
-        err instanceof Error ? err.message : "Erro inesperado. Tente novamente.",
-      );
-    }
+    await new Promise((resolve) => setTimeout(resolve, 900));
+    setStatus("success");
+    setForm(campoVazio);
   }
 
   return (
@@ -93,7 +78,7 @@ export function BookingForm() {
         <SectionHeading
           eyebrow="Agendamento online"
           title="Agende a consulta em menos de 1 minuto"
-          description="Preencha os dados abaixo. A confirmação é enviada automaticamente para o seu e-mail."
+          description="Preencha os dados abaixo e nossa equipe entrará em contato para confirmar a consulta."
         />
 
         <Reveal className="mt-12">
@@ -113,8 +98,8 @@ export function BookingForm() {
                     Agendamento confirmado!
                   </h3>
                   <p className="mt-2 max-w-md text-slate-600">
-                    Tudo certo! Enviamos a confirmação para o seu e-mail. Nossa
-                    equipe está ansiosa para cuidar do seu pet. 🐾
+                    Tudo certo! Recebemos sua solicitação e nossa equipe está
+                    ansiosa para cuidar do seu pet. 🐾
                   </p>
                   <button
                     type="button"

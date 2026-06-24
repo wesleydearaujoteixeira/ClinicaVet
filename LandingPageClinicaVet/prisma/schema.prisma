@@ -1,0 +1,21 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Agendamento {
+  id          String   @id @default(cuid())
+  nome        String
+  telefone    String
+  email       String
+  pet         String
+  especie     String
+  data        String
+  horario     String
+  observacoes String?
+  createdAt   DateTime @default(now())
+}
